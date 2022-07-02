@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+    <table border="1" cellspacing="0" cellpadding="20" >
+        <tr >
+            <th>Course Code</th>
+            <th>Course Title</th>
+            <th>Units</th>
+            <th>Mark</th>
+            <th>Grade</th>
+        </tr>
+        <tr>
+            <td>ITEC 202</td>
+            <td>Operating Systems</td>
+            <td>4</td>
+            <td><input type="number"></td>
+            <td id="grade0"></td>
+        </tr>
+        <tr>
+            <td>ITEC 224</td>
+            <td>Database Programming</td>
+            <td>4</td>
+            <td><input type="number"></td>
+            <td id="grade1"></td>
+        </tr>
+        <tr>
+            <td>ITEC 230</td>
+            <td>Rich Internet Application Development</td>
+            <td>4</td>
+            <td><input type="number"></td>
+            <td id="grade2"></td>
+        </tr>
+        <tr>
+            <td>ITEC 243</td>
+            <td>Object Oriented Programming</td>
+            <td>4</td>
+            <td><input type="number"></td>
+            <td id="grade3"></td>
+        </tr>
+        <tr>
+            <td>ITEC 259</td>
+            <td>Digital Logic Design</td>
+            <td>4</td>
+            <td><input type="number"></td>
+            <td id="grade4"></td>
+        </tr>
+        <tr>
+            
+            <td colspan="3" id="calculate">CGPA Calculate</td>
+            <th >CGPA: </th>
+            <td id="here"></td>
+        </tr>
+   
+        
+    </table>
+</center>
+     
+</body>
+    
+<script>
+    var ısItInvalid;
+    var marksArr=document.getElementsByTagName('input');
+   
+    document.getElementById("calculate").addEventListener("click",calculateGPA);
+    
+    function calculateGPA(){
+        var cgpa=0;    
+
+        
+       
+        for(var i=0;i<marksArr.length;i++){
+            var grd=parseFloat(marksArr[i].value);
+            var letterGr=letterGrade(grd);
+            document.getElementById('grade'+i).innerHTML=letterGr;
+
+        }
+
+
+        for(var i=0;i<marksArr.length;i++){
+            
+            var grd=parseFloat(marksArr[i].value);
+            var wght=gradeWeight(grd);
+            cgpa+=(4*wght);
+
+        }
+
+        for(var i=0;i<marksArr.length;i++){
+            if(marksArr[i].value>100||marksArr[i].value<0||marksArr[i].value.length==0||marksArr[i].value==NaN){
+                ısItInvalid=true;
+            }
+        }
+
+        if(ısItInvalid==true){
+            alert("You have entered invalid score! Your score must be between 0 and 100! Your score will be considered as if it is 0");
+        }
+       
+        cgpa=cgpa/20;
+
+        document.getElementById('here').innerHTML=cgpa;
+        
+
+      
+      
+        
+    }    
+
+
+    function letterGrade(grade){   
+        var lg;
+        if(grade>100||grade<0){
+            lg='F';
+        }            
+        else if(grade>=90){
+            lg='A';
+        }else if(grade>=85){
+            lg='A-';
+        }else if(grade>=80){
+            lg='B+';
+        }else if(grade>=75){
+            lg='B';
+        }else if(grade>=70){
+            lg='B-';
+        }else if(grade>=65){
+            lg='C+';
+        }else if(grade>=60){
+            lg='C';
+        }else if(grade>=56){
+            lg='C-';
+        }else if(grade>=53){
+            lg='D+';
+        }
+        else if(grade>=50){
+            lg='D';
+        }
+        else if(grade>=40){
+            lg='D-';
+            
+        }else {
+            lg='F';
+        }
+
+          return lg;
+
+
+       
+    }
+
+    function gradeWeight(grade){
+
+        var weight;
+        if(grade>100||grade<0){
+            weight=0;
+        }            
+        else if(grade>=90){
+            weight=4.0;
+        }else if(grade>=85){
+            weight=3.7;
+        }else if(grade>=80){
+            weight=3.3;
+        }else if(grade>=75){
+            weight=3.0;
+        }else if(grade>=70){
+            weight=2.7;
+        }else if(grade>=65){
+            weight=2.3;
+        }else if(grade>=60){
+            weight=2.0;
+        }else if(grade>=56){
+            weight=1.7;
+        }else if(grade>=53){
+            weight=1.3;
+        }
+        else if(grade>=50){
+            weight=1.0;
+        }
+        else if(grade>=40){
+            weight=0.7;
+        }
+        else {
+            weight=0.0;
+        }
+
+        return weight;
+        
+        
+        
+        
+
+    }
+
+
+</script>
+</html>
